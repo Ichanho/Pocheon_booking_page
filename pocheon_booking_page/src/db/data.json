@@ -1,0 +1,17 @@
+{
+  "days" : [
+    {
+      "id": 1,
+      "day": 20221010,
+      "booked": false
+    }
+  ],
+  "booking" : [
+    {
+      "id": 1,
+      "checkin": 20221010,
+      "checkout" : 20221011,
+      "name": "이찬호"
+    }
+  ]
+}
