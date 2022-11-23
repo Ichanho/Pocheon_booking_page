@@ -1,0 +1,82 @@
+.calendar{
+  display: flexbox;
+  width: 80%;
+  margin: 50px;
+
+  /* background-color: #333333; */
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.year_month{
+  font-size: 35px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+
+.btn {
+  width: 28px;
+  height: 30px;
+  border: none;
+  font-size: 16px;
+  line-height: 34px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.go_today {
+  /* height: 30px; */
+  width: 75px;
+  border-left: 1px solid #333333;
+  border-right: 1px solid #333333;
+}
+
+.day_of_the_week {
+  display: flex;
+  margin: 25px 0 10px;
+}
+
+.day {
+  width: calc(100% / 7);
+  text-align: center;
+}
+
+.dates {
+  display: flex;
+  flex-flow: row wrap;
+  height: 500px;
+  border-top: 1px solid #333333;
+  border-right: 1px solid #333333;
+}
+
+.date {
+  /* margin: -1px; */
+  width: calc(100% / 7);
+  padding: 15px;
+  text-align: right;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #333333;
+}
+
+.other{
+  background-color: #eeeeee;
+}
+
+.day:nth-child(7n + 1),
+.date:nth-child(7n + 1) {
+  color: #D13E3E;
+}
+
+.day:nth-child(7n),
+.date:nth-child(7n) {
+  color: #396EE2;
+}
