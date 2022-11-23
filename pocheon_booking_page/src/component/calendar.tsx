@@ -1,3 +1,6 @@
+import { useState } from "react";
+import styles from "./Calendar.module.css"
+
 function Calendar() {
 
   interface days {
@@ -14,7 +17,7 @@ function Calendar() {
     const day = new Date;
     const time: days = {
       year: day.getFullYear(),
-      month: day.getMonth(),
+      month: day.getMonth()+1,
       date: day.getDate(),
       hour: day.getHours(),
       minute: day.getMinutes(),
@@ -25,58 +28,97 @@ function Calendar() {
     return time;
   }
 
-  const today: days = getTime();
+  const [tagetday, setTagetday] = useState(getTime());
 
-  const preMonthLastDay = new Date(today.year, today.month - 1, 0);
-  const thisMonthLastDay = new Date(today.year, today.month, 0);
+  function renderCalendar(): number[] {
+    const preMonthLastDay = new Date(tagetday.year, tagetday.month - 1, 0);
+    const thisMonthLastDay = new Date(tagetday.year, tagetday.month, 0);
 
-  const preMonthLastDate: number = preMonthLastDay.getDate();
-  const thisMonthLastDate: number = thisMonthLastDay.getDate();
+    const preMonthLastDate: number = preMonthLastDay.getDate();
+    const thisMonthLastDate: number = thisMonthLastDay.getDate();
 
-  const preMonthLastDOW = preMonthLastDay.getDay();
-  const thisMonthLastDOW = thisMonthLastDay.getDay();
+    const preMonthLastDOW = preMonthLastDay.getDay();
+    const thisMonthLastDOW = thisMonthLastDay.getDay();
 
-  const preMonth: number[] = [];
-  for (let i = 0; i < preMonthLastDOW + 1; i++) {
-    preMonth.unshift(preMonthLastDate-i);
+    const preMonth: number[] = [];
+    for (let i = 0; i < preMonthLastDOW + 1; i++) {
+      preMonth.unshift(preMonthLastDate - i);
+    }
+    const thisMonth: number[] = [...Array(thisMonthLastDate)];
+    for (let i = 0; i < thisMonthLastDate; i++) {
+      thisMonth[i] = i + 1;
+    }
+    const nextMonth: number[] = [];
+    for (let i = 1; i < 7 - thisMonthLastDOW; i++) {
+      nextMonth.push(i);
+    }
+    const showDates: number[] = preMonth.concat(thisMonth, nextMonth);
+
+    return showDates;
   }
-  const thisMonth: number[] = [...Array(thisMonthLastDate)];
-  for (let i = 0; i < thisMonthLastDate; i++) {
-    thisMonth[i] = i + 1;
+
+  const showDayOfTheWeek: string[] = ["일", "월", "화", "수", "목", "금", "토"];
+  let showDates = renderCalendar();
+
+  function handlePreMonth() {
+    if (tagetday.month === 1) {
+      setTagetday((tagetday)=>{
+        return {...tagetday, year: tagetday.year-1, month: 12}
+      })
+    }
+    else {
+      setTagetday((tagetday)=>{
+        return {...tagetday, month: tagetday.month-1}
+      })
+    }
+    showDates = renderCalendar();
+    console.log(tagetday.month);
   }
-  const nextMonth: number[] = [];
-  for (let i = 1; i <7-thisMonthLastDOW; i++){
-    nextMonth.push(i);
+
+  function handleNextMonth() {
+    if (tagetday.month === 12) {
+      setTagetday((tagetday)=>{
+        return {...tagetday, year: tagetday.year+1, month: 1}
+      })
+    }
+    else {
+      setTagetday((tagetday)=>{
+        return {...tagetday, month: tagetday.month+1}
+      })
+    }
   }
 
-  const showDates: number[] = preMonth.concat(thisMonth,nextMonth);
-  console.log(showDates);
+  function handleToday(){
+    setTagetday(getTime())
+  }
 
-
-
-  return <div>
-    <div className="header">
-      <div className="year_month">{today.year}년 {today.month}월</div>
-      <div className="control">
-        <button>pre</button>
-        <button>today</button>
-        <button>next</button>
+  return <div className={styles.calendar}>
+    <div className={styles.header}>
+      <div className={styles.year_month}>{tagetday.year}년 {tagetday.month}월</div>
+      <div className={styles.control}>
+        <button className={styles.btn} onClick={handlePreMonth}>⟨</button>
+        <button className={`${styles.go_today} ${styles.btn}`} onClick={handleToday}>Today</button>
+        <button className={styles.btn} onClick={handleNextMonth}>〉</button>
       </div>
     </div>
 
-    <div className="show_days">
-      <div className="day_of_the_week">
-        <div>일</div>
-        <div>월</div>
-        <div>화</div>
-        <div>수</div>
-        <div>목</div>
-        <div>금</div>
-        <div>토</div>
+    <div className={styles.show_days}>
+      <div className={styles.day_of_the_week}>
+        {showDayOfTheWeek.map((each, index) => {
+          return <div key={index} className={styles.day}>{each}</div>
+        })}
       </div>
-      <div className="dates">
-        {showDates.map((each)=>{
-          return <div>{each}</div>;
+      <div className={styles.dates}>
+        {showDates.map((each, index) => {
+          if(each > index){
+            return <div className={`${styles.date} ${styles.other}`} key={index}>{each}</div>;
+          }
+          else if((index - each)<7){
+            return <div className={styles.date} key={index}>{each}</div>;
+          }
+          else{
+            return <div className={`${styles.date} ${styles.other}`} key={index}>{each}</div>;
+          }
         })}
       </div>
     </div>
