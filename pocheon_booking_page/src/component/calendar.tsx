@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"
 import styles from "./Calendar.module.css"
 
 function Calendar() {
@@ -17,7 +18,7 @@ function Calendar() {
     const day = new Date;
     const time: days = {
       year: day.getFullYear(),
-      month: day.getMonth()+1,
+      month: day.getMonth() + 1,
       date: day.getDate(),
       hour: day.getHours(),
       minute: day.getMinutes(),
@@ -62,13 +63,13 @@ function Calendar() {
 
   function handlePreMonth() {
     if (tagetday.month === 1) {
-      setTagetday((tagetday)=>{
-        return {...tagetday, year: tagetday.year-1, month: 12}
+      setTagetday((tagetday) => {
+        return { ...tagetday, year: tagetday.year - 1, month: 12 }
       })
     }
     else {
-      setTagetday((tagetday)=>{
-        return {...tagetday, month: tagetday.month-1}
+      setTagetday((tagetday) => {
+        return { ...tagetday, month: tagetday.month - 1 }
       })
     }
     showDates = renderCalendar();
@@ -77,18 +78,18 @@ function Calendar() {
 
   function handleNextMonth() {
     if (tagetday.month === 12) {
-      setTagetday((tagetday)=>{
-        return {...tagetday, year: tagetday.year+1, month: 1}
+      setTagetday((tagetday) => {
+        return { ...tagetday, year: tagetday.year + 1, month: 1 }
       })
     }
     else {
-      setTagetday((tagetday)=>{
-        return {...tagetday, month: tagetday.month+1}
+      setTagetday((tagetday) => {
+        return { ...tagetday, month: tagetday.month + 1 }
       })
     }
   }
 
-  function handleToday(){
+  function handleToday() {
     setTagetday(getTime())
   }
 
@@ -110,15 +111,13 @@ function Calendar() {
       </div>
       <div className={styles.dates}>
         {showDates.map((each, index) => {
-          if(each > index){
-            return <div className={`${styles.date} ${styles.other}`} key={index}>{each}</div>;
+          let classNameTemp: string = `${styles.date}`;
+          const id: string = `${tagetday.year}${String(tagetday.month).padStart(2, "0")}${String(each).padStart(2, "0")}`;
+          if (each > index || (index - each) > 7) {
+            classNameTemp = `${styles.date} ${styles.other}`
           }
-          else if((index - each)<7){
-            return <div className={styles.date} key={index}>{each}</div>;
-          }
-          else{
-            return <div className={`${styles.date} ${styles.other}`} key={index}>{each}</div>;
-          }
+          return <div className={classNameTemp} key={id}>
+            <Link to={`/book/${id}`} style={{ color: "inherit", textDecoration: "inherit" }}>{each}</Link></div>;
         })}
       </div>
     </div>
