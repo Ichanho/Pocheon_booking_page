@@ -1,0 +1,22 @@
+:root{
+  --margin : 10px;
+}
+
+.title{
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--margin);
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+}
+
+.title div{
+  font-size: 30px;
+}
+
+.title button{
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  border: none;
+}
