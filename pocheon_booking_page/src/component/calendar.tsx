@@ -112,11 +112,11 @@ function Calendar() {
       <div className={styles.dates}>
         {showDates.map((each, index) => {
           let classNameTemp: string = `${styles.date}`;
-          const id: string = `${tagetday.year}${String(tagetday.month).padStart(2, "0")}${String(each).padStart(2, "0")}`;
+          const id: number = Number(`${tagetday.year}${String(tagetday.month).padStart(2, "0")}${String(each).padStart(2, "0")}`);
           if (each > index || (index - each) > 7) {
             classNameTemp = `${styles.date} ${styles.other}`
           }
-          return <div className={classNameTemp} key={id}>
+          return <div className={classNameTemp} key={index}>
             <Link to={`/book/${id}`} style={{ color: "inherit", textDecoration: "inherit" }}>{each}</Link></div>;
         })}
       </div>
