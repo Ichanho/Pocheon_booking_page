@@ -7,7 +7,6 @@ function Home(){
 
 
   return <div>
-    <Title />
     <div className={styles.body}><Calendar /></div>
   </div>;
 }

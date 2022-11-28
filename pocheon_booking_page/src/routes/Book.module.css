@@ -1,0 +1,40 @@
+.book{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookingForm{
+  width: 60%;
+  height: 60%;
+  margin-bottom: 100px;
+  font-size: 30px;
+
+  padding: 30px;
+
+  background-color: lightblue;
+
+  text-align: center;
+}
+
+.bookingInput{
+  width: 300px;
+  height: 40px;
+  /* font-size: 30px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  text-align: center;
+  border-color: lightgray;
+}
+
+.bookingInput::placeholder{
+  text-align: center;
+}
+
+.bookingForm button{
+  height: 30px;
+  width: 60px;
+}
