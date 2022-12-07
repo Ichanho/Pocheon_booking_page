@@ -1,17 +1,29 @@
 {
-  "days" : [
+  "days": [
     {
       "id": 1,
-      "day": 20221010,
+      "day": "2022-10-10",
       "booked": false
     }
   ],
-  "booking" : [
+  "booking": [
     {
       "id": 1,
-      "checkin": 20221010,
-      "checkout" : 20221011,
-      "name": "이찬호"
+      "day": "20221010",
+      "name": "이찬호",
+      "password": "1234 "
+    },
+    {
+      "day": "2022-12-02",
+      "name": "사용자 1번",
+      "password": "1919",
+      "id": 2
+    },
+    {
+      "day": "2022-12-23",
+      "name": "사용자 2",
+      "password": "1234",
+      "id": 3
     }
   ]
 }
